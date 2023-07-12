@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,4 +18,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Route::get('/', [\App\Http\Controllers\UserController::class, 'index']);
+Route::post('/', [RegistrationController::class, 'store']);
+Route::get('/profile/{id}', [RegistrationController::class, 'display_request_image']);
