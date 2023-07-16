@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Individual;
+use App\Models\UserAccount;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 
 class RegistrationController extends Controller
@@ -11,33 +14,34 @@ class RegistrationController extends Controller
     //
     public function store(Request $request)
     {
+
         $id = request('id');
+        $email = request('email');
         $first_name = request('first_name');
         $last_name = request('last_name');
+        $password = request('password');
         $country = request('country');
         $designation = request('designation');
         $organization = request('organization');
+        $accreditation_type = request('accreditation_type');
         $passport_number = request('passport_number');
         $national_id = request('national_id');
 
-        $arrindividual = array(
-            'id' => $id,
-            'first_name' => $first_name,
-            'last_name' => $last_name,
-            'country' => $country,
-            'designation' => $designation,
-            'organization' => $organization,
-            'passport_number' => $passport_number,
-            'national_id' => $national_id
-        );
+        $arrIndividual = array(
+            'id' => $id, 'email' => $email, 'first_name' => $first_name, 'last_name' => $last_name, 'password' => Hash::make($password), 'country' => $country, 'designation' => $designation,
+            'organization' => $organization, 'accreditation_type' => $accreditation_type, 'passport_number' => $passport_number, 'national_id' => $national_id, 'date_created' => now() );
 
         $photo_path = $request->file('photo_path')->store('photo_path');
-        $arrindividual['photo_path'] = $photo_path;
+        $arrIndividual['photo_path'] = $photo_path;
 
-        DB::table("individual")->insert($arrindividual);
-        return response()->json(['message'=>'registration completed successfully!']);
+        $arrAuthentication = array('id' => $id, 'name' => $last_name, 'email' => $email, 'password' => Hash::make($password), 'created_at' => now());
 
-//        print_r($arrindividual); exit();
+        DB::table("individual")->insert($arrIndividual);
+        DB::table("users")->insert($arrAuthentication);
+
+        return redirect('/auth');
+
+//        print_r($arrIndividual); exit();
     }
 
     public function display_request_image()
