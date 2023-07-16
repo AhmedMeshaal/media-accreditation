@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistrationController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,3 +20,10 @@ Route::get('/', function () {
 
 Route::post('/', [RegistrationController::class, 'store']);
 Route::get('/profile/{id}', [RegistrationController::class, 'display_request_image']);
+
+Route::get('/auth', [LoginController::class, 'index'])->name('login');
+Route::post('/auth', [LoginController::class, 'login'])->name('auth');
+Route::get('/dashboard', function () {
+    return view('Individual.dashboard');
+})->middleware('auth');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
