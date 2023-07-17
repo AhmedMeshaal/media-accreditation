@@ -17,8 +17,7 @@ class RegistrationController extends Controller
 
         $id = request('id');
         $email = request('email');
-        $first_name = request('first_name');
-        $last_name = request('last_name');
+        $name = request('name');
         $password = request('password');
         $country = request('country');
         $designation = request('designation');
@@ -44,6 +43,7 @@ class RegistrationController extends Controller
 //        print_r($arrIndividual); exit();
     }
 
+
     public function display_request_image()
     {
 
@@ -60,9 +60,37 @@ class RegistrationController extends Controller
             header('Pragma: public');
             header('Content-Length: ' . filesize($filename_path));
         }
+
         readfile($filename_path);
         return NULL;
 
     }
 
+
+    public function update_profile(Request $request)
+    {
+
+        $id = request('id');
+
+        $arrProfileUpdate = array(
+            'name' => request('name'), 'password' => Hash::make(request('password')), 'designation' => request('designation'), 'organization' => request('organization')
+        );
+
+//        $path = $request->file('photo_path')->store('photo_path');
+//        $arrProfileUpdate['photo_path'] = $path;
+
+            DB::table('individual')->where('individual.id', $id)->update($arrProfileUpdate);
+
+            return redirect('/profile/'.$id)->with('status', 'profile updated');
+    }
+
+
+    public function view_profile(Request $request)
+    {
+        $id = request('id');
+
+        $arrIndividuals = DB::table('individual')->where('individual.id', '=', $id)->get();
+
+        return view('individual.profile', [ 'individuals' => $arrIndividuals, 'id' => $id ]);
+    }
 }

@@ -3,8 +3,7 @@
 <form method="POST" enctype="multipart/form-data">
 
     @csrf
-    First name<input type="text" name="first_name"/>
-    <BR>Last name<input type="text" name="last_name"/>
+    First name<input type="text" name="name"/>
     <BR>email<input type="text" name="email"/>
     <BR>password<input type="password" name="password"/>
     <BR>Country<select name="country">

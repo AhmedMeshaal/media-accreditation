@@ -19,7 +19,9 @@ Route::get('/', function () {
 });
 
 Route::post('/', [RegistrationController::class, 'store']);
-Route::get('/profile/{id}', [RegistrationController::class, 'display_request_image']);
+Route::get('/profile/{id}', [RegistrationController::class, 'view_profile'])->name('profile');
+Route::post('profile_update/{id}', [RegistrationController::class, 'update_profile'])->name('update_profile');
+Route::get('profile_image/{id}', [RegistrationController::class, 'display_request_image'])->name('profile_image');
 
 Route::get('/auth', [LoginController::class, 'index'])->name('login');
 Route::post('/auth', [LoginController::class, 'login'])->name('auth');
