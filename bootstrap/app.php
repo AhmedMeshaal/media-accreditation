@@ -25,6 +25,9 @@ $app = new Illuminate\Foundation\Application(
 | incoming requests to this application from both the web and CLI.
 |
 */
+//$app->routeMiddleware([
+//    'auth' => App\Http\Middleware\Authenticate::class,
+//]);
 
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,
@@ -51,5 +54,10 @@ $app->singleton(
 | from the actual running of the application and sending responses.
 |
 */
+
+
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: *');
+header('Access-Control-Allow-Headers: *');
 
 return $app;

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\IndividualController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,3 +30,7 @@ Route::get('/dashboard', function () {
     return view('Individual.dashboard');
 })->middleware('auth');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::get('/individual_list', [IndividualController::class, 'individual_list'])->name('individual_list');
+Route::get('/profile_status/user/{id}', [IndividualController::class, 'individual_approve'])->name('individual_approve');
+Route::put('/profile_status/user/{id}', [IndividualController::class, 'individual_approve'])->name('individual_validate');

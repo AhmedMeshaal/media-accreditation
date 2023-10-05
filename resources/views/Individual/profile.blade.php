@@ -9,7 +9,8 @@
 
             <img src="/profile_image/{{ $id }}" class="img-fluid" alt="quixote">
     </ol>
-    <img src="profile_image/{{ $id }}" class="img-fluid" alt="quixote">
+{{--    <img src="profile_image/{{ $id }}" class="img-fluid" alt="quixote">--}}
+
 
        <form method="POST" action="/profile_update/{{ $individual->id }}" enctype="multipart/form-data">
            @csrf

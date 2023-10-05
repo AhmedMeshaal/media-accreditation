@@ -8,11 +8,13 @@ class Individual extends Model {
 
 
     protected $fillable = [
-        'id', 'email', 'first_name', 'last_name', 'password', 'country', 'designation', 'organization', 'accreditation_type', 'passport_number', 'national_id', 'photo_path'
+        'id', 'email', 'name', 'password', 'country', 'designation', 'organization', 'accreditation_type', 'passport_number', 'national_id', 'photo_path', 'status', 'approvedBy', 'CREATED_AT', 'UPDATED_AT'
     ];
 
-    public function user()
-    {
-        return $this->belongsTo(UserAccount::class);
-    }
+    protected $table = 'individual';
+    protected $primaryKey = 'id';
+
+    public $timestamps = true;
+
 }
+
